@@ -6,6 +6,7 @@ import sys
 import serial
 from enum import IntEnum
 import logging
+import binascii
 
 logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
 
@@ -50,8 +51,10 @@ class HM305:
 
     def send(self, data):
         d = data + struct.pack('<H', self.calculate_crc(data))
-        logging.debug(f"TX: {d}")
-        return self.s.write(d)
+        logging.debug(f"TX[{len(binascii.hexlify(d))/2:02.0f}]: {binascii.hexlify(d)}")
+        ret = self.s.write(d)
+        #self.s.flush()
+        return ret
 
     def recv(self, length=1):
         data = b''
@@ -67,7 +70,7 @@ class HM305:
             if crc != packet_crc:
                 raise CRCError("RX")
 
-            logging.debug(f"RX: {data}")
+            logging.debug(f"RX[{len(binascii.hexlify(data))/2:02.0f}]: {binascii.hexlify(data)}")
             return data[:-2]
         return None
 
@@ -192,8 +195,15 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--voltage', type=float, help='set voltage')
-    parser.add_argument('--current', type=float, help='set current')
+
+    serial_parser = parser.add_mutually_exclusive_group(required=True)
+    serial_parser.add_argument('--port', type=str, help='serial port')
+
+    volt_parser = parser.add_mutually_exclusive_group()
+    volt_parser.add_argument('--voltage', type=float, help='set voltage')
+    volt_parser.add_argument('--adj-voltage', metavar="X", type=float, help='adjust voltage by X')
+    current_parser = parser.add_mutually_exclusive_group()
+    current_parser.add_argument('--current', type=float, help='set current')
 
     output_parser = parser.add_mutually_exclusive_group()
     output_parser.add_argument('--on', action='store_true', help='switch output on')
@@ -219,6 +229,9 @@ if __name__ == "__main__":
         if args.voltage is not None:
             logging.info("Setting voltage:")
             hm.v = args.voltage
+        elif args.adj_voltage is not None:
+            logging.info("Adjusting voltage:")
+            hm.v += args.adj_voltage
         if args.current is not None:
             logging.info("Setting current:")
             hm.i = args.current
