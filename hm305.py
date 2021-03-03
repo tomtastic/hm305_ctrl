@@ -224,7 +224,7 @@ if __name__ == "__main__":
 
     if args.debug:
         logging.getLogger().setLevel(logging.DEBUG)
-    with serial.Serial('/dev/ttyUSB0', baudrate=9600, timeout=0.1) as ser:
+    with serial.Serial(args.port, baudrate=9600, timeout=0.1) as ser:
         hm = HM305(ser)
         if args.voltage is not None:
             logging.info("Setting voltage:")
