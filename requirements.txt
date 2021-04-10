@@ -1,0 +1,2 @@
+scpi-protocol
+pyserial
