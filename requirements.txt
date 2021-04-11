@@ -1,2 +1,2 @@
-scpi-protocol
-pyserial
+pyserial~=3.5
+numpy~=1.20.2

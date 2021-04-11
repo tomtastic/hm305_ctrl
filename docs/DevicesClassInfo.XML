@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevicesClassInfo>
+   <DeviceClass ClassTemplate="K3" ClassName="三位显示线性电源" ShowBit="3">
+      
+      <PowerSwitchAddr>0x0001</PowerSwitchAddr><!-- 设备开关地址 -->
+      <PowerSwitchBytes>2</PowerSwitchBytes><!-- 设备开关地址长度 -->
+
+      <ProtectStatAddr>0x0002</ProtectStatAddr><!-- 保护状态地址 -->
+      <ProtectStatBytes>2</ProtectStatBytes>><!-- 保护状态地址长度 -->
+
+      <ModelAddr>0x0003</ModelAddr><!-- 规格型号地址 -->
+      <ModelBytes>2</ModelBytes><!-- 规格型号地址长度 -->
+
+      <ClassDetialAddr>0x0004</ClassDetialAddr><!-- 分类尾缀地址 -->
+      <ClassDetialBytes>2</ClassDetialBytes><!-- 分类尾缀地址长度 -->
+
+      <DecimalsAddr>0x0005</DecimalsAddr><!-- 小数点位数地址 -->
+      <DecimalsBytes>2</DecimalsBytes><!-- 小数点位数长度 -->
+
+      <VoltageAddr>0x0010</VoltageAddr> <!-- 显示电压的地址 -->
+      <VoltageBytes>2</VoltageBytes> <!-- 显示电压的地址长度 -->
+
+      <CurrentAddr>0x0011</CurrentAddr><!-- 显示电流的地址 -->
+      <CurrentBytes>2</CurrentBytes><!-- 显示电流的地址长度 -->
+
+      <PowerAddr>0x0012</PowerAddr><!-- 显示功率的地址 -->
+      <PowerBytes>4</PowerBytes><!-- 显示功率的地址长度 -->
+
+      <PowerCalAddr>0x0014</PowerCalAddr><!-- 计算功率的地址 -->
+      <PowerCalBytes>4</PowerCalBytes><!-- 计算功率的的地址长度 -->
+
+
+      <ProtectVolAddr>0x0020</ProtectVolAddr><!--过压保护的地址 -->
+      <ProtectVolBytes>2</ProtectVolBytes><!--过压保护的地址长度 -->
+
+      <ProtectCurAddr>0x0021</ProtectCurAddr><!--过流保护的地址 -->
+      <ProtectCurBytes>2</ProtectCurBytes><!--过压保护的地址长度 -->
+
+      <ProtectPowAddr>0x0022</ProtectPowAddr><!--过功率保护的地址 -->
+      <ProtectPowBytes>4</ProtectPowBytes><!--过功率保护的地址长度 -->
+    
+<!-- ........................................................ -->
+      <PowerStatAddr>0x8801</PowerStatAddr><!-- 设备开机状态地址 -->
+      <PowerStatBytes>2</PowerStatBytes><!-- 设备开关地址长度 -->
+    
+      <defaultShowAddr>0x8802</defaultShowAddr><!-- 预设值显示地址 -->
+      <defaultShowBytes>2</defaultShowBytes><!-- 预设值显示地址长度 -->
+
+      <SCPAddr>0x8803</SCPAddr><!-- 短路电流保护地址 -->
+      <SCPBytes>2</SCPBytes><!-- 短路电流保护地址长度 -->
+
+   
+      <BuzzerAddr>0x8804</BuzzerAddr><!-- 蜂鸣器地址 -->
+      <BuzzerBytes>2</BuzzerBytes><!-- 蜂鸣器地址长度 -->
+  
+      <DeviceAddr>0x9999</DeviceAddr><!-- 设备地址 -->
+      <DeviceBytes>2</DeviceBytes><!-- 设备地址长度 -->
+  
+      <SDTimeAddr>0xCCCC</SDTimeAddr><!-- SDTime地址 -->
+      <SDTimeBytes>2</SDTimeBytes><!-- SDTime地址长度 -->
+<!-- ...... 校准地址............................................... -->
+      <ULAddr>0xC110</ULAddr><!-- UL地址 -->
+      <ULBytes>4</ULBytes><!-- UL地址长度 -->
+
+      <UHAddr>0xC11E</UHAddr><!-- UH地址 -->
+      <UHBytes>4</UHBytes><!-- UH地址长度 -->     
+
+      <ILAddr>0xC120</ILAddr><!-- IL地址 -->
+      <ILBytes>4</ILBytes><!-- IL地址长度 --> 
+
+      <IHAddr>0xC12E</IHAddr><!-- IH地址 -->
+      <IHBytes>4</IHBytes><!-- IH地址长度 -->     
+
+    </DeviceClass>
+    
+
+    <DeviceClass ClassTemplate="KF" ClassName="四位显示开关电流" ShowBit="4">
+      
+      <PowerSwitchAddr>0x0001</PowerSwitchAddr><!-- 设备开关地址 -->
+      <PowerSwitchBytes>2</PowerSwitchBytes><!-- 设备开关地址长度 -->
+
+      <ProtectStatAddr>0x0002</ProtectStatAddr><!-- 保护状态地址 -->
+      <ProtectStatBytes>2</ProtectStatBytes>><!-- 保护状态地址长度 -->
+
+      <ModelAddr>0x0003</ModelAddr><!-- 规格型号地址 -->
+      <ModelBytes>2</ModelBytes><!-- 规格型号地址长度 -->
+
+      <ClassDetialAddr>0x0004</ClassDetialAddr><!-- 分类尾缀地址 -->
+      <ClassDetialBytes>2</ClassDetialBytes><!-- 分类尾缀地址长度 -->
+
+      <DecimalsAddr>0x0005</DecimalsAddr><!-- 小数点位数地址 -->
+      <DecimalsBytes>2</DecimalsBytes><!-- 小数点位数长度 -->
+
+      <VoltageAddr>0x0010</VoltageAddr> <!-- 显示电压的地址 -->
+      <VoltageBytes>2</VoltageBytes> <!-- 显示电压的地址长度 -->
+
+      <CurrentAddr>0x0011</CurrentAddr><!-- 显示电流的地址 -->
+      <CurrentBytes>2</CurrentBytes><!-- 显示电流的地址长度 -->
+
+      <PowerAddr>0x0012</PowerAddr><!-- 显示功率的地址 -->
+      <PowerBytes>4</PowerBytes><!-- 显示功率的地址长度 -->
+
+      <PowerCalAddr>0x0014</PowerCalAddr><!-- 计算功率的地址 -->
+      <PowerCalBytes>4</PowerCalBytes><!-- 计算功率的的地址长度 -->
+
+
+      <ProtectVolAddr>0x0020</ProtectVolAddr><!--过压保护的地址 -->
+      <ProtectVolBytes>2</ProtectVolBytes><!--过压保护的地址长度 -->
+
+      <ProtectCurAddr>0x0021</ProtectCurAddr><!--过流保护的地址 -->
+      <ProtectCurBytes>2</ProtectCurBytes><!--过压保护的地址长度 -->
+
+      <ProtectPowAddr>0x0022</ProtectPowAddr><!--过功率保护的地址 -->
+      <ProtectPowBytes>4</ProtectPowBytes><!--过功率保护的地址长度 -->
+    
+<!-- ———————————————————————————————————— -->
+      <PowerStatAddr>0x8801</PowerStatAddr><!-- 设备开机状态地址 -->
+      <PowerStatBytes>2</PowerStatBytes><!-- 设备开关地址长度 -->
+    
+      <defaultShowAddr>0x8802</defaultShowAddr><!-- 预设值显示地址 -->
+      <defaultShowBytes>2</defaultShowBytes><!-- 预设值显示地址长度 -->
+
+      <SCPAddr>0x8803</SCPAddr><!-- 短路电流保护地址 -->
+      <SCPBytes>2</SCPBytes><!-- 短路电流保护地址长度 -->
+
+   
+      <BuzzerAddr>0x8804</BuzzerAddr><!-- 蜂鸣器地址 -->
+      <BuzzerBytes>2</BuzzerBytes><!-- 蜂鸣器地址长度 -->
+  
+      <DeviceAddr>0x9999</DeviceAddr><!-- 设备地址 -->
+      <DeviceBytes>2</DeviceBytes><!-- 设备地址长度 -->
+  
+      <SDTimeAddr>0xCCCC</SDTimeAddr><!-- SDTime地址 -->
+      <SDTimeBytes>2</SDTimeBytes><!-- SDTime地址长度 -->
+<!-- —————— 校准地址———————————————————————————————— -->
+      <ULAddr>0xC110</ULAddr><!-- UL地址 -->
+      <ULBytes>4</ULBytes><!-- UL地址长度 -->
+
+      <UHAddr>0xC11E</UHAddr><!-- UH地址 -->
+      <UHBytes>4</UHBytes><!-- UH地址长度 -->     
+
+      <ILAddr>0xC120</ILAddr><!-- IL地址 -->
+      <ILBytes>4</ILBytes><!-- IL地址长度 --> 
+
+      <IHAddr>0xC12E</IHAddr><!-- IH地址 -->
+      <IHBytes>4</IHBytes><!-- IH地址长度 -->     
+
+    </DeviceClass>
+   
+   <DeviceClass ClassTemplate="KP" ClassName="四位显示开关程控电源" ShowBit="4">
+      
+      <PowerSwitchAddr>0x0001</PowerSwitchAddr><!-- 设备开关地址 -->
+      <PowerSwitchBytes>2</PowerSwitchBytes><!-- 设备开关地址长度 -->
+
+      <ProtectStatAddr>0x0002</ProtectStatAddr><!-- 保护状态地址 -->
+      <ProtectStatBytes>2</ProtectStatBytes>><!-- 保护状态地址长度 -->
+
+      <ModelAddr>0x0003</ModelAddr><!-- 规格型号地址 -->
+      <ModelBytes>2</ModelBytes><!-- 规格型号地址长度 -->
+
+      <ClassDetialAddr>0x0004</ClassDetialAddr><!-- 分类尾缀地址 -->
+      <ClassDetialBytes>2</ClassDetialBytes><!-- 分类尾缀地址长度 -->
+
+      <DecimalsAddr>0x0005</DecimalsAddr><!-- 小数点位数地址 -->
+      <DecimalsBytes>2</DecimalsBytes><!-- 小数点位数长度 -->
+
+      <VoltageAddr>0x0010</VoltageAddr> <!-- 显示电压的地址 -->
+      <VoltageBytes>2</VoltageBytes> <!-- 显示电压的地址长度 -->
+
+      <CurrentAddr>0x0011</CurrentAddr><!-- 显示电流的地址 -->
+      <CurrentBytes>2</CurrentBytes><!-- 显示电流的地址长度 -->
+
+      <PowerAddr>0x0012</PowerAddr><!-- 显示功率的地址 -->
+      <PowerBytes>4</PowerBytes><!-- 显示功率的地址长度 -->
+
+      <PowerCalAddr>0x0014</PowerCalAddr><!-- 计算功率的地址 -->
+      <PowerCalBytes>4</PowerCalBytes><!-- 计算功率的的地址长度 -->
+
+
+      <ProtectVolAddr>0x0020</ProtectVolAddr><!--过压保护的地址 -->
+      <ProtectVolBytes>2</ProtectVolBytes><!--过压保护的地址长度 -->
+
+      <ProtectCurAddr>0x0021</ProtectCurAddr><!--过流保护的地址 -->
+      <ProtectCurBytes>2</ProtectCurBytes><!--过压保护的地址长度 -->
+
+      <ProtectPowAddr>0x0022</ProtectPowAddr><!--过功率保护的地址 -->
+      <ProtectPowBytes>4</ProtectPowBytes><!--过功率保护的地址长度 -->
+<!-- ————————————程控设置———————————————————————— -->
+      <SetVolAddr>0x0030</SetVolAddr><!--设置电压的地址 -->
+      <SetVolBytes>2</SetVolBytes><!--设置电压的地址字节数 -->
+      
+      <SetCurAddr>0x0031</SetCurAddr><!--设置电流地址 -->
+      <SetCurBytes>2</SetCurBytes><!--设置电流地址字节数 -->
+      
+      <SetTimeSpanAddr>0x0032</SetTimeSpanAddr><!--设置时间地址 -->
+      <SetTimeSpanBytes>2</SetTimeSpanBytes><!--设置时间地址字节数 -->
+
+    
+<!-- —————————————————————————————————— -->
+      <PowerStatAddr>0x8801</PowerStatAddr><!-- 设备开机状态地址 -->
+      <PowerStatBytes>2</PowerStatBytes><!-- 设备开关地址长度 -->
+    
+      <defaultShowAddr>0x8802</defaultShowAddr><!-- 预设值显示地址 -->
+      <defaultShowBytes>2</defaultShowBytes><!-- 预设值显示地址长度 -->
+
+      <SCPAddr>0x8803</SCPAddr><!-- 短路电流保护地址 -->
+      <SCPBytes>2</SCPBytes><!-- 短路电流保护地址长度 -->
+
+   
+      <BuzzerAddr>0x8804</BuzzerAddr><!-- 蜂鸣器地址 -->
+      <BuzzerBytes>2</BuzzerBytes><!-- 蜂鸣器地址长度 -->
+  
+      <DeviceAddr>0x9999</DeviceAddr><!-- 设备地址 -->
+      <DeviceBytes>2</DeviceBytes><!-- 设备地址长度 -->
+  
+      <SDTimeAddr>0xCCCC</SDTimeAddr><!-- SDTime地址 -->
+      <SDTimeBytes>2</SDTimeBytes><!-- SDTime地址长度 -->
+<!-- —————————— 校准地址—————————————————————————— -->
+      <ULAddr>0xC110</ULAddr><!-- UL地址 -->
+      <ULBytes>4</ULBytes><!-- UL地址长度 -->
+
+      <UHAddr>0xC11E</UHAddr><!-- UH地址 -->
+      <UHBytes>4</UHBytes><!-- UH地址长度 -->     
+
+      <ILAddr>0xC120</ILAddr><!-- IL地址 -->
+      <ILBytes>4</ILBytes><!-- IL地址长度 --> 
+
+      <IHAddr>0xC12E</IHAddr><!-- IH地址 -->
+      <IHBytes>4</IHBytes><!-- IH地址长度 -->     
+
+    </DeviceClass>
+	
+    <DeviceClass ClassTemplate="SP" ClassName="五位显示蓝屏电源" ShowBit="5">
+      
+      <PowerSwitchAddr>0x0001</PowerSwitchAddr><!-- 设备开关地址 -->
+      <PowerSwitchBytes>2</PowerSwitchBytes><!-- 设备开关地址长度 -->
+
+      <ProtectStatAddr>0x0002</ProtectStatAddr><!-- 保护状态地址 -->
+      <ProtectStatBytes>2</ProtectStatBytes>><!-- 保护状态地址长度 -->
+
+      <ModelAddr>0x0003</ModelAddr><!-- 规格型号地址 -->
+      <ModelBytes>2</ModelBytes><!-- 规格型号地址长度 -->
+
+      <ClassDetialAddr>0x0004</ClassDetialAddr><!-- 分类尾缀地址 -->
+      <ClassDetialBytes>2</ClassDetialBytes><!-- 分类尾缀地址长度 -->
+
+      <DecimalsAddr>0x0005</DecimalsAddr><!-- 小数点位数地址 -->
+      <DecimalsBytes>2</DecimalsBytes><!-- 小数点位数长度 -->
+
+      <VoltageAddr>0x0010</VoltageAddr> <!-- 显示电压的地址 -->
+      <VoltageBytes>4</VoltageBytes> <!-- 显示电压的地址长度 -->
+
+      <CurrentAddr>0x0012</CurrentAddr><!-- 显示电流的地址 -->
+      <CurrentBytes>4</CurrentBytes><!-- 显示电流的地址长度 -->
+
+      <PowerAddr>0x0014</PowerAddr><!-- 显示功率的地址 -->
+      <PowerBytes>4</PowerBytes><!-- 显示功率的地址长度 -->
+
+      <PowerCalAddr>0x0014</PowerCalAddr><!-- 计算功率的地址 -->
+      <PowerCalBytes>4</PowerCalBytes><!-- 计算功率的的地址长度 -->
+
+
+      <ProtectVolAddr>0xAA00</ProtectVolAddr><!--过压保护的地址 -->
+      <ProtectVolBytes>4</ProtectVolBytes><!--过压保护的地址长度 -->
+
+      <ProtectCurAddr>0xAA00</ProtectCurAddr><!--过流保护的地址 -->
+      <ProtectCurBytes>4</ProtectCurBytes><!--过压保护的地址长度 -->
+
+      <ProtectPowAddr>0xAA00</ProtectPowAddr><!--过功率保护的地址 -->
+      <ProtectPowBytes>4</ProtectPowBytes><!--过功率保护的地址长度 -->
+    <!-- ————————————程控设置———————————————————————— -->
+      <SetVolAddr>0x0020</SetVolAddr><!--设置电压的地址 -->
+      <SetVolBytes>4</SetVolBytes><!--设置电压的地址字节数 -->
+      
+      <SetCurAddr>0x0022</SetCurAddr><!--设置电流地址 -->
+      <SetCurBytes>4</SetCurBytes><!--设置电流地址字节数 -->
+      
+      <SetTimeSpanAddr>0xAA00</SetTimeSpanAddr><!--设置时间地址 -->
+      <SetTimeSpanBytes>4</SetTimeSpanBytes><!--设置时间地址字节数 -->
+
+    
+<!-- —————————————————————————————————— -->
+<!-- ........................................................ -->
+      <PowerStatAddr>0x0001</PowerStatAddr><!-- 设备开机状态地址 -->
+      <PowerStatBytes>2</PowerStatBytes><!-- 设备开关地址长度 -->
+    
+      <defaultShowAddr>0xAA00</defaultShowAddr><!-- 预设值显示地址 -->
+      <defaultShowBytes>2</defaultShowBytes><!-- 预设值显示地址长度 -->
+
+      <SCPAddr>0xAA00</SCPAddr><!-- 短路电流保护地址 -->
+      <SCPBytes>2</SCPBytes><!-- 短路电流保护地址长度 -->
+
+   
+      <BuzzerAddr>0xAA00</BuzzerAddr><!-- 蜂鸣器地址 -->
+      <BuzzerBytes>2</BuzzerBytes><!-- 蜂鸣器地址长度 -->
+  
+      <DeviceAddr>0x9999</DeviceAddr><!-- 设备地址 -->
+      <DeviceBytes>2</DeviceBytes><!-- 设备地址长度 -->
+  
+      <SDTimeAddr>0xAA00</SDTimeAddr><!-- SDTime地址 -->
+      <SDTimeBytes>2</SDTimeBytes><!-- SDTime地址长度 -->
+<!-- ...... 校准地址............................................... -->
+      <ULAddr>0xC110</ULAddr><!-- UL地址 -->
+      <ULBytes>4</ULBytes><!-- UL地址长度 -->
+
+      <UHAddr>0xC11E</UHAddr><!-- UH地址 -->
+      <UHBytes>4</UHBytes><!-- UH地址长度 -->     
+
+      <ILAddr>0xC120</ILAddr><!-- IL地址 -->
+      <ILBytes>4</ILBytes><!-- IL地址长度 --> 
+
+      <IHAddr>0xC12E</IHAddr><!-- IH地址 -->
+      <IHBytes>4</IHBytes><!-- IH地址长度 -->     
+
+    </DeviceClass>
+	
+	<DeviceClass ClassTemplate="KM" ClassName="四位显示大功率开关电源" ShowBit="4">
+      
+      <PowerSwitchAddr>0x0001</PowerSwitchAddr><!-- 设备开关地址 -->
+      <PowerSwitchBytes>2</PowerSwitchBytes><!-- 设备开关地址长度 -->
+
+      <ProtectStatAddr>0x0002</ProtectStatAddr><!-- 保护状态地址 -->
+      <ProtectStatBytes>2</ProtectStatBytes>><!-- 保护状态地址长度 -->
+
+      <ModelAddr>0x0003</ModelAddr><!-- 规格型号地址 -->
+      <ModelBytes>2</ModelBytes><!-- 规格型号地址长度 -->
+
+      <ClassDetialAddr>0x0004</ClassDetialAddr><!-- 分类尾缀地址 -->
+      <ClassDetialBytes>2</ClassDetialBytes><!-- 分类尾缀地址长度 -->
+
+      <DecimalsAddr>0x0005</DecimalsAddr><!-- 小数点位数地址 -->
+      <DecimalsBytes>2</DecimalsBytes><!-- 小数点位数长度 -->
+
+      <VoltageAddr>0x0010</VoltageAddr> <!-- 显示电压的地址 -->
+      <VoltageBytes>2</VoltageBytes> <!-- 显示电压的地址长度 -->
+
+      <CurrentAddr>0x0011</CurrentAddr><!-- 显示电流的地址 -->
+      <CurrentBytes>2</CurrentBytes><!-- 显示电流的地址长度 -->
+
+      <PowerAddr>0x0012</PowerAddr><!-- 显示功率的地址 -->
+      <PowerBytes>4</PowerBytes><!-- 显示功率的地址长度 -->
+
+      <PowerCalAddr>0x0014</PowerCalAddr><!-- 计算功率的地址 -->
+      <PowerCalBytes>4</PowerCalBytes><!-- 计算功率的的地址长度 -->
+
+
+      <ProtectVolAddr>0x0020</ProtectVolAddr><!--过压保护的地址 -->
+      <ProtectVolBytes>2</ProtectVolBytes><!--过压保护的地址长度 -->
+
+      <ProtectCurAddr>0x0021</ProtectCurAddr><!--过流保护的地址 -->
+      <ProtectCurBytes>2</ProtectCurBytes><!--过压保护的地址长度 -->
+
+      <ProtectPowAddr>0x0022</ProtectPowAddr><!--过功率保护的地址 -->
+      <ProtectPowBytes>4</ProtectPowBytes><!--过功率保护的地址长度 -->
+    
+<!-- —————————————————————————————————— -->
+      <PowerStatAddr>0x8801</PowerStatAddr><!-- 设备开机状态地址 -->
+      <PowerStatBytes>2</PowerStatBytes><!-- 设备开关地址长度 -->
+    
+      <defaultShowAddr>0x8802</defaultShowAddr><!-- 预设值显示地址 -->
+      <defaultShowBytes>2</defaultShowBytes><!-- 预设值显示地址长度 -->
+
+      <SCPAddr>0x8803</SCPAddr><!-- 短路电流保护地址 -->
+      <SCPBytes>2</SCPBytes><!-- 短路电流保护地址长度 -->
+
+   
+      <BuzzerAddr>0x8804</BuzzerAddr><!-- 蜂鸣器地址 -->
+      <BuzzerBytes>2</BuzzerBytes><!-- 蜂鸣器地址长度 -->
+  
+      <DeviceAddr>0x9999</DeviceAddr><!-- 设备地址 -->
+      <DeviceBytes>2</DeviceBytes><!-- 设备地址长度 -->
+  
+      <SDTimeAddr>0xCCCC</SDTimeAddr><!-- SDTime地址 -->
+      <SDTimeBytes>2</SDTimeBytes><!-- SDTime地址长度 -->
+<!-- —————————— 校准地址—————————————————————————— -->
+      <ULAddr>0xC110</ULAddr><!-- UL地址 -->
+      <ULBytes>4</ULBytes><!-- UL地址长度 -->
+
+      <UHAddr>0xC11E</UHAddr><!-- UH地址 -->
+      <UHBytes>4</UHBytes><!-- UH地址长度 -->     
+
+      <ILAddr>0xC120</ILAddr><!-- IL地址 -->
+      <ILBytes>4</ILBytes><!-- IL地址长度 --> 
+
+      <IHAddr>0xC12E</IHAddr><!-- IH地址 -->
+      <IHBytes>4</IHBytes><!-- IH地址长度 -->     
+
+    </DeviceClass>
+
+	<DeviceClass ClassTemplate="KC" ClassName="四位显示大功率数控电源" ShowBit="4">
+      
+      <PowerSwitchAddr>0x0001</PowerSwitchAddr><!-- 设备开关地址 -->
+      <PowerSwitchBytes>2</PowerSwitchBytes><!-- 设备开关地址长度 -->
+
+      <ProtectStatAddr>0x0002</ProtectStatAddr><!-- 保护状态地址 -->
+      <ProtectStatBytes>2</ProtectStatBytes>><!-- 保护状态地址长度 -->
+
+      <ModelAddr>0x0003</ModelAddr><!-- 规格型号地址 -->
+      <ModelBytes>2</ModelBytes><!-- 规格型号地址长度 -->
+
+      <ClassDetialAddr>0x0004</ClassDetialAddr><!-- 分类尾缀地址 -->
+      <ClassDetialBytes>2</ClassDetialBytes><!-- 分类尾缀地址长度 -->
+
+      <DecimalsAddr>0x0005</DecimalsAddr><!-- 小数点位数地址 -->
+      <DecimalsBytes>2</DecimalsBytes><!-- 小数点位数长度 -->
+
+      <VoltageAddr>0x0010</VoltageAddr> <!-- 显示电压的地址 -->
+      <VoltageBytes>2</VoltageBytes> <!-- 显示电压的地址长度 -->
+
+      <CurrentAddr>0x0011</CurrentAddr><!-- 显示电流的地址 -->
+      <CurrentBytes>2</CurrentBytes><!-- 显示电流的地址长度 -->
+
+      <PowerAddr>0x0012</PowerAddr><!-- 显示功率的地址 -->
+      <PowerBytes>4</PowerBytes><!-- 显示功率的地址长度 -->
+
+      <PowerCalAddr>0x0014</PowerCalAddr><!-- 计算功率的地址 -->
+      <PowerCalBytes>4</PowerCalBytes><!-- 计算功率的的地址长度 -->
+
+
+      <ProtectVolAddr>0x0020</ProtectVolAddr><!--过压保护的地址 -->
+      <ProtectVolBytes>2</ProtectVolBytes><!--过压保护的地址长度 -->
+
+      <ProtectCurAddr>0x0021</ProtectCurAddr><!--过流保护的地址 -->
+      <ProtectCurBytes>2</ProtectCurBytes><!--过压保护的地址长度 -->
+
+      <ProtectPowAddr>0x0022</ProtectPowAddr><!--过功率保护的地址 -->
+      <ProtectPowBytes>4</ProtectPowBytes><!--过功率保护的地址长度 -->
+<!-- ————————————程控设置———————————————————————— -->
+      <SetVolAddr>0x0030</SetVolAddr><!--设置电压的地址 -->
+      <SetVolBytes>2</SetVolBytes><!--设置电压的地址字节数 -->
+      
+      <SetCurAddr>0x0031</SetCurAddr><!--设置电流地址 -->
+      <SetCurBytes>2</SetCurBytes><!--设置电流地址字节数 -->
+
+    
+<!-- —————————————————————————————————— -->
+      <PowerStatAddr>0x8801</PowerStatAddr><!-- 设备开机状态地址 -->
+      <PowerStatBytes>2</PowerStatBytes><!-- 设备开关地址长度 -->
+    
+      <defaultShowAddr>0x8802</defaultShowAddr><!-- 预设值显示地址 -->
+      <defaultShowBytes>2</defaultShowBytes><!-- 预设值显示地址长度 -->
+
+      <SCPAddr>0x8803</SCPAddr><!-- 短路电流保护地址 -->
+      <SCPBytes>2</SCPBytes><!-- 短路电流保护地址长度 -->
+
+   
+      <BuzzerAddr>0x8804</BuzzerAddr><!-- 蜂鸣器地址 -->
+      <BuzzerBytes>2</BuzzerBytes><!-- 蜂鸣器地址长度 -->
+  
+      <DeviceAddr>0x9999</DeviceAddr><!-- 设备地址 -->
+      <DeviceBytes>2</DeviceBytes><!-- 设备地址长度 -->
+  
+      <SDTimeAddr>0xCCCC</SDTimeAddr><!-- SDTime地址 -->
+      <SDTimeBytes>2</SDTimeBytes><!-- SDTime地址长度 -->
+<!-- —————————— 校准地址—————————————————————————— -->
+      <ULAddr>0xC110</ULAddr><!-- UL地址 -->
+      <ULBytes>4</ULBytes><!-- UL地址长度 -->
+
+      <UHAddr>0xC11E</UHAddr><!-- UH地址 -->
+      <UHBytes>4</UHBytes><!-- UH地址长度 -->     
+
+      <ILAddr>0xC120</ILAddr><!-- IL地址 -->
+      <ILBytes>4</ILBytes><!-- IL地址长度 --> 
+
+      <IHAddr>0xC12E</IHAddr><!-- IH地址 -->
+      <IHBytes>4</IHBytes><!-- IH地址长度 -->     
+
+    </DeviceClass>
+    
+</DevicesClassInfo>
