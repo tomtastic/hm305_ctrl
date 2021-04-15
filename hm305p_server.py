@@ -39,8 +39,9 @@ def main():
     parser = argparse.ArgumentParser()
     signal.signal(signal.SIGINT, exit_gracefully)
     signal.signal(signal.SIGTERM, exit_gracefully)
-    serial_parser = parser.add_mutually_exclusive_group(required=True)
-    serial_parser.add_argument('--port', type=str, help='serial port')
+    parser.add_argument('--serial-port', type=str, help='serial port', required=True)
+    parser.add_argument('--port', type=int, help='network port', required=True)
+    parser.add_argument('--addr', type=str, help='ip to bind to', required=False, default='0.0.0.0')
     parser.add_argument('--debug', action='store_true', help='enable verbose logging')
     args = parser.parse_args()
 
@@ -54,7 +55,7 @@ def main():
 
     if args.debug:
         logging.getLogger().setLevel(logging.DEBUG)
-    with serial.Serial(args.port, baudrate=9600, timeout=0.1) as ser:
+    with serial.Serial(args.serial_port, baudrate=9600, timeout=0.1) as ser:
         # ser.set_low_latency_mode(True) # doesn't work on ch341
         hm = hm305.HM305(ser)
         serial_consumer = HM305pSerialQueueHandler(HM305pServer.serial_q, hm)
@@ -64,7 +65,7 @@ def main():
         fast_consumer_thread = threading.Thread(target=fast_consumer.run)
         fast_consumer_thread.start()
         try:
-            server = socketserver.TCPServer(("127.0.0.1", 9091), HM305pServer)
+            server = socketserver.TCPServer((args.addr, args.port), HM305pServer)
             server.serve_forever()
         except OSError:
             exit_gracefully()
