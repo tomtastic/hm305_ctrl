@@ -144,6 +144,15 @@ class MeasureCurrentQuery(QueryCommand):
         self.complete = True
 
 
+class SetCurrentCommand(CommandWithFloatArg):
+    uses_serial_port = True
+    wait_for_result = False
+
+    def invoke(self, hm):
+        hm.i = self.arg
+        self.complete = True
+
+
 class CurrentSetpointQuery(QueryCommand):
     uses_serial_port = False
     wait_for_result = True
@@ -153,11 +162,17 @@ class CurrentSetpointQuery(QueryCommand):
         self.complete = True
 
 
+# TODO
+SetCurrentSetpointCommand = SetCurrentCommand
+
+
 class CommandFactory:
     Commands = scpi.Commands({
         "VOLTage": partial(dict, get=MeasureVoltageQuery, set=SetVoltageCommand),
         "VOLTage:SETPoint": partial(dict, get=VoltageSetpointQuery, set=SetVoltageSetpointCommand),
         "VOLTage:APPLY": partial(dict, get=None, set=VoltageApplyCommand),
+        "CURRent": partial(dict, get=MeasureCurrentQuery, set=SetCurrentCommand),
+        "CURRent:SETPoint": partial(dict, get=CurrentSetpointQuery, set=SetCurrentSetpointCommand),
         "OUTput": partial(dict, get=OutputQuery, set=SetOutputCommand),
     })
 
