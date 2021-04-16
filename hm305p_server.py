@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
-
-
 import hm305
 import sys
 import serial
 import logging
 import socketserver
-import signal
 from queue import Queue
 import threading
 
@@ -24,21 +21,18 @@ def exit_gracefully(a=None, b=None):
     HM305pFastQueueHandler.time_to_die = True
     server.shutdown()
     server.socket.close()
-
-
+    exit(0)
 
 
 # psu0 on : snmpset -v 1 -c private pdu 1.3.6.1.4.1.318.1.1.4.4.2.1.3.8 i 1
 # psu1 on : snmpset -v 1 -c private pdu 1.3.6.1.4.1.318.1.1.4.4.2.1.3.7 i 1
 
 
-
 def main():
     import argparse
     global server
+    print(sys.argv)
     parser = argparse.ArgumentParser()
-    signal.signal(signal.SIGINT, exit_gracefully)
-    signal.signal(signal.SIGTERM, exit_gracefully)
     parser.add_argument('--serial-port', type=str, help='serial port', required=True)
     parser.add_argument('--port', type=int, help='network port', required=True)
     parser.add_argument('--addr', type=str, help='ip to bind to', required=False, default='0.0.0.0')
@@ -60,14 +54,16 @@ def main():
         hm = hm305.HM305(ser)
         serial_consumer = HM305pSerialQueueHandler(HM305pServer.serial_q, hm)
         serial_consumer_thread = threading.Thread(target=serial_consumer.run)
+        serial_consumer_thread.daemon = True
         serial_consumer_thread.start()
         fast_consumer = HM305pFastQueueHandler(HM305pServer.fast_q, hm)
         fast_consumer_thread = threading.Thread(target=fast_consumer.run)
+        fast_consumer_thread.daemon = True
         fast_consumer_thread.start()
         try:
             server = socketserver.TCPServer((args.addr, args.port), HM305pServer)
             server.serve_forever()
-        except OSError:
+        except (OSError, KeyboardInterrupt):
             exit_gracefully()
 
 

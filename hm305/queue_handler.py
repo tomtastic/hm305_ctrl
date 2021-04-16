@@ -1,6 +1,8 @@
 import logging
 from queue import Empty
 
+import hm305
+
 
 class HM305pSerialQueueHandler:  # todo priority queue? monitoring commands for i3bar are much less important
     time_to_die = False
@@ -17,7 +19,10 @@ class HM305pSerialQueueHandler:  # todo priority queue? monitoring commands for 
                     logging.debug(f"stale item! {item}")
                 else:
                     logging.debug(f"processing {item}")
-                    item.invoke(self.hm)
+                    try:
+                        item.invoke(self.hm)
+                    except hm305.CRCError as e:
+                        logging.error(e)
                 self.queue.task_done()
             except Empty:
                 continue

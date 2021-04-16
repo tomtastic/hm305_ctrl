@@ -1,0 +1,2 @@
+Eliminate numpy dependency
+Handle exceptions in server thread at all lol

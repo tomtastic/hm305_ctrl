@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="11329d6c-a0be-4998-ae4d-f2ff3dbe21e2" name="psupi">
+        <fileTransfer rootFolder="/root" accessType="SFTP" host="10.2.0.9" port="22" sshConfigId="e4cf2958-df0a-4301-9c9c-05be9ca8a92c" sshConfig="root@10.2.0.9:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
