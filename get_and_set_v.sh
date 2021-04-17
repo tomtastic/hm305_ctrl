@@ -3,15 +3,15 @@
 PORT=${1}
 INC=${3}
 CMD=${2}
-
+HOST="10.2.0.9"
 
 SEND() {
-  echo "$@" | nc 127.0.0.1 "$PORT"
+  echo "$@" | nc "$HOST" "$PORT"
 }
 
 case "$CMD" in
 "VA")
-  V="$(bc <<< "scale=2; $(echo 'VOLT:SETP? ' | nc 127.0.0.1 $PORT)+$INC")"
+  V="$(bc <<< "scale=2; $(echo 'VOLT:SETP? ' | nc "$HOST" "$PORT")+$INC")"
   SEND "VOLT $V"
   ;;
 "OUTPUT")
