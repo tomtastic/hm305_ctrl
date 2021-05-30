@@ -1,2 +1,16 @@
 Eliminate numpy dependency
 Handle exceptions in server thread at all lol
+
+May 20 18:17:27 psupi hm305p_server.py[1416]: Exception in thread Thread-1:
+May 20 18:17:27 psupi hm305p_server.py[1416]: Traceback (most recent call last):
+May 20 18:17:27 psupi hm305p_server.py[1416]:   File "/usr/lib/python3.9/threading.py", line 954, in _bootstrap_inner
+May 20 18:17:27 psupi hm305p_server.py[1416]:     self.run()
+May 20 18:17:27 psupi hm305p_server.py[1416]:   File "/usr/lib/python3.9/threading.py", line 892, in run
+May 20 18:17:27 psupi hm305p_server.py[1416]:     self._target(*self._args, **self._kwargs)
+May 20 18:17:27 psupi hm305p_server.py[1416]:   File "/root/hm305_ctrl/hm305/queue_handler.py", line 23, in run
+May 20 18:17:27 psupi hm305p_server.py[1416]:     item.invoke(self.hm)
+May 20 18:17:27 psupi hm305p_server.py[1416]:   File "/root/hm305_ctrl/hm305/server_commands.py", line 84, in invoke
+May 20 18:17:27 psupi hm305p_server.py[1416]:     self.result = hm.v
+May 20 18:17:27 psupi hm305p_server.py[1416]:   File "/root/hm305_ctrl/hm305/__init__.py", line 120, in v
+May 20 18:17:27 psupi hm305p_server.py[1416]:     return self.x(HM305.CMD.Voltage) / 100
+May 20 18:17:27 psupi hm305p_server.py[1416]: TypeError: unsupported operand type(s) for /: 'NoneType' and 'int'

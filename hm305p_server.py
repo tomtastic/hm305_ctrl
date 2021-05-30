@@ -10,7 +10,7 @@ import threading
 from hm305.queue_handler import HM305pSerialQueueHandler, HM305pFastQueueHandler
 from hm305.server import HM305pServer
 
-logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s %(name) %(message)s', level=logging.DEBUG)
 
 global server
 
@@ -60,11 +60,15 @@ def main():
         fast_consumer_thread = threading.Thread(target=fast_consumer.run)
         fast_consumer_thread.daemon = True
         fast_consumer_thread.start()
-        try:
-            server = socketserver.TCPServer((args.addr, args.port), HM305pServer)
-            server.serve_forever()
-        except (OSError, KeyboardInterrupt):
-            exit_gracefully()
+        while True:
+            try:
+                server = socketserver.TCPServer((args.addr, args.port), HM305pServer)
+                server.serve_forever()
+            except OSError as e:
+                logging.error(e)
+            except (KeyboardInterrupt):
+                exit_gracefully()
+            
 
 
 if __name__ == "__main__":

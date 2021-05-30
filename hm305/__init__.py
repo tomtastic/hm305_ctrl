@@ -1,8 +1,9 @@
-import struct
-import serial
-from enum import IntEnum
 import logging
-import binascii
+from enum import IntEnum
+import serial
+from modbus import Modbus
+
+logger = logging.getLogger(__name__)
 
 
 class HM305:
@@ -32,97 +33,45 @@ class HM305:
 
     def __init__(self, fd=None):
         if fd is None:
-            logging.debug("HM305 opened without a serial obj! using defaults.")
+            logger.debug("HM305 opened without a serial obj! using defaults.")
             fd = serial.Serial('/dev/ttyUSB0', baudrate=9600, timeout=0.1)
-        self.s = fd
+        self.modbus = Modbus(fd)
         self.v_setpoint_sw = 0
         self.i_setpoint_sw = 0
 
-    def send(self, data):
-        d = data + struct.pack('<H', self.calculate_crc(data))
-        logging.debug(f"TX[{len(binascii.hexlify(d)) / 2:02.0f}]: {binascii.hexlify(d)}")
-        ret = self.s.write(d)
-        # logging.debug(f"TX: done")
-        # self.s.flush() doesn't seem to help
+    def _set_val(self, addr: int, val) -> bool:
+        self.modbus.send_packet(address=addr, value=val)
+        ret = self.modbus.receive_packet()
+        return (addr, val) == ret
+
+    def _get_val(self, addr: int) -> int:
+        self.modbus.send_packet(address=addr, value=None)
+        ret = self.modbus.receive_packet()
         return ret
 
-    def recv(self, length=1):
-        data = b''
-        while True:
-            b = self.s.read(length)
-            if len(b) == 0:
-                break
-            data += b
-        if len(data) > 2:
-            crc = self.calculate_crc(data[:-2])
-            packet_crc, = struct.unpack('<H', data[-2:])
-            if crc != packet_crc:
-                raise CRCError("RX")
-            logging.debug(f"RX[{len(binascii.hexlify(data)) / 2:02.0f}]: {binascii.hexlify(data)}")
-            return data[:-2]
-        return None
-
-    def send_packet(self, device_address=1, address=5, value=None):
-        if value is None:
-            read = True
-            value = 1
+    def _tx_rx_word(self, addr: int, val=None) -> int:
+        if val is None:  # a getter
+            return (self._get_val(addr) << 16) + self._get_val(addr + 1)
         else:
-            read = False
-        pack = struct.pack('>BBHH', device_address, (6, 3)[read], address, value)
-        self.send(pack)
-
-    def receive_packet(self):
-        p = self.recv()
-        if p:
-            if p[1] == 0x83:
-                if p[2] == 0x08:
-                    raise CRCError("TX")
-                else:
-                    raise Exception("Unknown error " + repr(p))
-            elif p[1] == 3:
-                length = p[2]
-                assert len(p[3:]) == length
-                if length == 2:
-                    ret, = struct.unpack('>H', p[3:])
-                    return ret
-                else:
-                    return p
-            elif p[1] == 6:
-                assert len(p[2:]) == 4
-                addr, val = struct.unpack('>HH', p[2:])
-                return addr, val
-            else:
-                raise Exception("Unknown response %d" % p)
-
-    def x(self, addr, val=None):
-        self.send_packet(address=addr, value=val)
-        ret = self.receive_packet()
-        if val is None:
-            return ret
-        else:
-            assert addr, val == ret
-
-    def x4(self, addr, val=None):
-        if val is None:
-            return (self.x(addr) << 16) + self.x(addr + 1)
-        else:
-            self.x(addr, val >> 16)
-            self.x(addr + 1, val & 0xffff)
+            a = self._set_val(addr, val >> 16)
+            if a:
+                return self._set_val(addr + 1, val & 0xffff)
+            return False
 
     def initialize(self):
-        self.v_setpoint_sw = self.x(HM305.CMD.Set_Voltage) / 100
-        self.x(HM305.CMD.Set_Current) / 1000
+        self.v_setpoint_sw = self._get_val(HM305.CMD.Set_Voltage) / 100
+        self._get_val(HM305.CMD.Set_Current) / 1000
 
     ###########################################################
 
     @property
     def v(self):
-        return self.x(HM305.CMD.Voltage) / 100
+        return self._get_val(HM305.CMD.Voltage) / 100
 
     @v.setter
     def v(self, val):
         self.v_setpoint_sw = val
-        self.x(HM305.CMD.Set_Voltage, val=rint(val * 100))
+        self._set_val(HM305.CMD.Set_Voltage, val=rint(val * 100))
 
     @property
     def vset(self):
@@ -137,16 +86,19 @@ class HM305:
         self.v_setpoint_sw += inc
 
     def v_apply(self):
-        self.x(HM305.CMD.Set_Voltage, val=rint(self.v_setpoint_sw * 100))
+        self._set_val(HM305.CMD.Set_Voltage, val=rint(self.v_setpoint_sw * 100))
 
     ###########################################################
     @property
     def i(self):
-        return self.x(HM305.CMD.Current) / 1000
+        out = self._get_val(HM305.CMD.Current)
+        if out is None:
+            out = 0
+        return out / 1000
 
     @i.setter
     def i(self, c):
-        self.x(HM305.CMD.Set_Current, val=rint(c * 1000))
+        self._set_val(HM305.CMD.Set_Current, val=rint(c * 1000))
 
     @property
     def iset(self):
@@ -158,67 +110,49 @@ class HM305:
     ###########################################################
     @property
     def w(self):
-        return self.x4(HM305.CMD.Power) / 1000
+        return self._tx_rx_word(HM305.CMD.Power) / 1000
 
     @property
     def vmax(self):
-        return self.x4(HM305.CMD.Voltage_Max)
+        return self._tx_rx_word(HM305.CMD.Voltage_Max)
 
     @property
     def output(self):
-        return self.x(HM305.CMD.Output)
+        return self._get_val(HM305.CMD.Output)
 
     def off(self):
-        self.x(HM305.CMD.Output, 0)
+        self._set_val(HM305.CMD.Output, 0)
 
     def on(self):
-        self.x(HM305.CMD.Output, 1)
+        self._set_val(HM305.CMD.Output, 1)
 
     @property
     def beep(self):
-        return self.x(HM305.CMD.Buzzer)
+        return self._get_val(HM305.CMD.Buzzer)
 
     @beep.setter
     def beep(self, v):
-        self.x(HM305.CMD.Buzzer, v)
+        self._set_val(HM305.CMD.Buzzer, v)
 
     @property
     def model(self):
-        return self.x(HM305.CMD.Model_address)
+        return self._get_val(HM305.CMD.Model_address)
 
     @property
     def protect_state(self):
-        return self.x(HM305.CMD.Protect_state_address)
+        return self._get_val(HM305.CMD.Protect_state_address)
 
     @property
     def decimals(self):
-        return self.x(HM305.CMD.Decimals)
+        return self._get_val(HM305.CMD.Decimals)
 
     @property
     def classdetail(self):
-        return self.x(HM305.CMD.Class_detail)
+        return self._get_val(HM305.CMD.Class_detail)
 
     @property
     def device(self):
-        return self.x(HM305.CMD.Device)
-
-    @staticmethod
-    def calculate_crc(data):
-        """Calculate the CRC16 of a datagram"""
-        crc = 0xFFFF
-        for i in data:
-            crc ^= i
-            for _ in range(8):
-                if crc & 1:
-                    crc >>= 1
-                    crc ^= 0xa001
-                else:
-                    crc >>= 1
-        return crc
-
-
-class CRCError(Exception):
-    pass
+        return self._get_val(HM305.CMD.Device)
 
 
 def rint(x):
