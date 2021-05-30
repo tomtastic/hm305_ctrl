@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import socket
+from time import sleep
+
 import hm305
 import sys
 import serial
@@ -10,7 +13,7 @@ import threading
 from hm305.queue_handler import HM305pSerialQueueHandler, HM305pFastQueueHandler
 from hm305.server import HM305pServer
 
-logging.basicConfig(format='%(asctime)s %(name) %(message)s', level=logging.DEBUG)
+logging.basicConfig(format='%(msecs)03d/%(name)s: %(message)s', level=logging.DEBUG)
 
 global server
 
@@ -27,12 +30,17 @@ def exit_gracefully(a=None, b=None):
 # psu0 on : snmpset -v 1 -c private pdu 1.3.6.1.4.1.318.1.1.4.4.2.1.3.8 i 1
 # psu1 on : snmpset -v 1 -c private pdu 1.3.6.1.4.1.318.1.1.4.4.2.1.3.7 i 1
 
+class ReusableServer(socketserver.TCPServer):
+    allow_reuse_address = True
+    # server.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
 
 def main():
     import argparse
     global server
     print(sys.argv)
     parser = argparse.ArgumentParser()
+    parser.add_argument('name_tag', nargs='?', default="none")
     parser.add_argument('--serial-port', type=str, help='serial port', required=True)
     parser.add_argument('--port', type=int, help='network port', required=True)
     parser.add_argument('--addr', type=str, help='ip to bind to', required=False, default='0.0.0.0')
@@ -62,11 +70,12 @@ def main():
         fast_consumer_thread.start()
         while True:
             try:
-                server = socketserver.TCPServer((args.addr, args.port), HM305pServer)
+                server = ReusableServer((args.addr, args.port), HM305pServer)
                 server.serve_forever()
             except OSError as e:
                 logging.error(e)
-            except (KeyboardInterrupt):
+                sleep(1)
+            except KeyboardInterrupt:
                 exit_gracefully()
             
 

@@ -1,7 +1,9 @@
 import logging
 from queue import Empty
 
-import hm305
+from modbus import CRCError
+
+logger = logging.getLogger(__name__)
 
 
 class HM305pSerialQueueHandler:  # todo priority queue? monitoring commands for i3bar are much less important
@@ -16,13 +18,13 @@ class HM305pSerialQueueHandler:  # todo priority queue? monitoring commands for 
             try:
                 item = self.queue.get(timeout=1)
                 if item.stale:
-                    logging.debug(f"stale item! {item}")
+                    logger.debug(f"stale item! {item}")
                 else:
-                    logging.debug(f"processing {item}")
+                    logger.debug(f"processing {item}")
                     try:
                         item.invoke(self.hm)
-                    except hm305.CRCError as e:
-                        logging.error(e)
+                    except CRCError as e:
+                        logger.error(e)
                 self.queue.task_done()
             except Empty:
                 continue
@@ -40,12 +42,12 @@ class HM305pFastQueueHandler:
             try:
                 item = self.queue.get(timeout=1)
                 if item.stale:
-                    logging.debug(f"stale item! {item}")
+                    logger.debug(f"stale item! {item}")
                 elif item.uses_serial_port:
-                    logging.error(f"Bad programmer! You cannot put {item} in the fast queue!")
+                    logger.error(f"Bad programmer! You cannot put {item} in the fast queue!")
                     item.result = "QUEUE ERROR"
                 else:
-                    logging.debug(f"processing {item}")
+                    logger.debug(f"processing {item}")
                     item.invoke(self.hm)
                 self.queue.task_done()
             except Empty:

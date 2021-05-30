@@ -83,7 +83,7 @@ class Modbus:
         packet_crc, = struct.unpack('<H', data[-2:])
         if crc != packet_crc:
             raise CRCError("RX")
-        logging.debug(f"RX[{len(binascii.hexlify(data)) / 2:02.0f}]: {binascii.hexlify(data)}")
+        logger.debug(f"RX[{len(binascii.hexlify(data)) / 2:02.0f}]: {binascii.hexlify(data)}")
         return data[:-2]
 
     @staticmethod

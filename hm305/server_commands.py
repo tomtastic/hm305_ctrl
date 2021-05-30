@@ -24,11 +24,17 @@ class Command:
     def result_as_string(self):
         return f"{self.result}"
 
+    def __repr__(self):
+        return f"<{self.__class__.__name__}>"
+
 
 class CommandWithArg(Command):
     def __init__(self, arg):
         super().__init__()
         self.arg = arg
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}>({self.arg})"
 
 
 class CommandWithFloatArg(CommandWithArg):
@@ -42,6 +48,9 @@ class CommandWithFloatArg(CommandWithArg):
 
     def result_as_string(self):
         return f"{self.result:2.3f}"
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}({self.arg})={self.result}>"
 
 
 class QueryCommand(Command):
