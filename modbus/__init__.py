@@ -7,14 +7,16 @@ logger = logging.getLogger(__name__)
 
 
 class Modbus:
+    WriteSingleRegister = 0x06
+    ReadMultichannelRegisterInput = 0x03
+
     def __init__(self, fd):
         """
-
         :param fd: the file descriptor with read/write methods to use
         """
         self.s = fd
 
-    def send(self, data):
+    def _send(self, data) -> int:
         d = data + struct.pack('<H', self.calculate_crc(data))
         logger.debug(f"TX[{len(binascii.hexlify(d)) / 2:02.0f}]: {binascii.hexlify(d)}")
         ret = self.s.write(d)
@@ -22,7 +24,7 @@ class Modbus:
         # self.s.flush() doesn't seem to help
         return ret
 
-    def recv(self, length=1) -> Optional[bytes]:
+    def _recv(self, length=1) -> Optional[bytes]:
         data = b''
         while True:
             b = self.s.read(length)
@@ -36,12 +38,13 @@ class Modbus:
 
     def send_packet(self, device_address=1, address=5, value=None):
         if value is None:
-            read = True
-            value = 1
+            value = 1  # todo this can be used to increase the length of a read!
+            # set value to "2" to read 2 consecutive registers!
+            function_code = Modbus.ReadMultichannelRegisterInput
         else:
-            read = False
-        pack = struct.pack('>BBHH', device_address, (6, 3)[read], address, value)
-        self.send(pack)
+            function_code = Modbus.WriteSingleRegister
+        pack = struct.pack('>BBHH', device_address, function_code, address, value)
+        self._send(pack)
 
     class RxPacket:
         def __init__(self, pkt):
@@ -70,7 +73,7 @@ class Modbus:
                 self.data = 0
 
     def receive_packet(self):
-        p = self.recv()
+        p = self._recv()
         if p:
             pkt = Modbus.RxPacket(p)
             return pkt.data
@@ -86,8 +89,18 @@ class Modbus:
         logger.debug(f"RX[{len(binascii.hexlify(data)) / 2:02.0f}]: {binascii.hexlify(data)}")
         return data[:-2]
 
+    def set_by_addr(self, address: int, value) -> bool:
+        self.send_packet(address=address, value=value)
+        ret = self.receive_packet()
+        return (address, value) == ret
+
+    def get_by_addr(self, address: int) -> int:
+        self.send_packet(address=address, value=None)
+        ret = self.receive_packet()
+        return ret
+
     @staticmethod
-    def calculate_crc(data):
+    def calculate_crc(data: bytes) -> int:
         """Calculate the CRC16 of a datagram"""
         crc = 0xFFFF
         for i in data:

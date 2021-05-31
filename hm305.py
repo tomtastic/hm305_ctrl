@@ -34,6 +34,9 @@ if __name__ == "__main__":
     parser.add_argument('--get-power', action='store_true', help='report output power in W')
     parser.add_argument('--get-voltage-max', action='store_true', help='report possible max voltage')
     parser.add_argument('--info', action='store_true', help='get PSU info')
+    def auto_int(x):
+        return int(x, 0)
+    parser.add_argument('--raw', type=auto_int, help='get a raw address')
 
     args = parser.parse_args()
 
@@ -48,13 +51,13 @@ if __name__ == "__main__":
         hm = HM305(ser)
         if args.voltage is not None:
             logging.info("Setting voltage:")
-            hm.v = args.voltage
+            hm.voltage.instrument_setpoint = args.voltage
         elif args.adj_voltage is not None:
             logging.info("Adjusting voltage:")
-            hm.v += args.adj_voltage
+            hm.voltage.instrument_setpoint += args.adj_voltage
         if args.current is not None:
             logging.info("Setting current:")
-            hm.i = args.current
+            hm.current.value = args.current
         if args.beep:
             logging.info("Setting beep: ON")
             hm.beep = 1
@@ -68,8 +71,8 @@ if __name__ == "__main__":
             logging.info("Setting output: ON")
             hm.on()
         if args.get:
-            logging.info(f"{hm.v} Volts")
-            logging.info(f"{hm.i} Amps")
+            logging.info(f"{hm.voltage.value} Volts")
+            logging.info(f"{hm.current.value} Amps")
             logging.info(f"{hm.w} Watts")
         if args.get_power:
             logging.info(f"{hm.w} Watts")
@@ -82,4 +85,7 @@ if __name__ == "__main__":
                          f"decimals: {hex(hm.decimals)}\n"
                          f"class_details: {hex(hm.classdetail)}\n"
                          f"Device: {hm.device}")
+        if args.raw:
+            val = hm.modbus.get_by_addr(args.raw)
+            logging.info(f"{args.raw: x}: {val} / {val: x}")
     logging.debug("Done")

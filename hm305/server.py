@@ -2,13 +2,15 @@ import logging
 import socketserver
 from typing import Any
 
-from hm305.server_commands import CommandFactory, SetVoltageCommand, SetVoltageSetpointCommand, VoltageApplyCommand
+from hm305.command_factory import CommandFactory
+from hm305.server_commands import SetVoltageCommand, SetVoltageSetpointCommand, VoltageApplyCommand, \
+    Command, SetCurrentCommand, SetCurrentSetpointCommand, CurrentApplyCommand
 
 logger = logging.getLogger(__name__)
 
 
 class HM305pSerialQueueItem:
-    def __init__(self, cmd):
+    def __init__(self, cmd: Command):
         self.stale = False
         self.cmd = cmd
         self.result = None
@@ -37,6 +39,15 @@ class HM305pServer(socketserver.StreamRequestHandler):
             HM305pServer.fast_q.join()
             HM305pServer.serial_q.put(apply)
             resp = setpt.result_as_string()
+        elif isinstance(item, SetCurrentCommand):
+            logger.debug(f"processing {item} special case")
+            setpt = SetCurrentSetpointCommand(item.arg)
+            apply = CurrentApplyCommand()
+            apply.stale |= setpt.stale  # pull this in to handle poorly formatted floats
+            HM305pServer.fast_q.put(setpt)
+            HM305pServer.fast_q.join()
+            HM305pServer.serial_q.put(apply)
+            resp = setpt.result_as_string()
         elif item is not None:
             if item.uses_serial_port:
                 logger.debug(f"enqueing {item} in the serial queue")
@@ -49,7 +60,7 @@ class HM305pServer(socketserver.StreamRequestHandler):
                 logger.debug(f"waiting on {item}")
                 q.join()
                 resp = item.result_as_string()
-                logger.debug(f"{item}.result: {item.result}")
+                logger.debug(f"{item}")
             else:
                 resp = 'DONE\n'
 

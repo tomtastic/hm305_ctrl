@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShortcutKey>
+   <Template TID="DP" ClassName="三位可编程直流电源系列" KeyCount="6" VoltageBytes="2" CurrentBytes="2" TimeSpanBytes="2" EnableBytes="2">
+     
+      <Key ID="key1" Name="M1">      
+         <VoltageAddr>0x1000</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1001</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1002</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+          <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+          <EnableAddr>0x1003</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>
+      <Key ID="key2" Name="M2">      
+         <VoltageAddr>0x1010</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1011</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1012</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+
+          <EnableAddr>0x1013</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>  
+      <Key ID="key3" Name="M3">      
+         <VoltageAddr>0x1020</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1021</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1022</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+
+          <EnableAddr>0x1023</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>   
+      <Key ID="key4" Name="M4">      
+         <VoltageAddr>0x1030</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1031</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1032</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+          <EnableAddr>0x1033</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>
+      <Key ID="key5" Name="M5">      
+         <VoltageAddr>0x1040</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1041</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1042</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+          <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 --> 
+          <EnableAddr>0x1043</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>
+      <Key ID="key6" Name="M6">      
+         <VoltageAddr>0x1050</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1051</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1052</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+          <EnableAddr>0x1053</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>
+
+    </Template>
+
+
+<Template TID="K4" ClassName="四位开关可编程电源系列" KeyCount="6">
+     
+      <Key ID="key1" Name="M1">      
+         <VoltageAddr>0x1000</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1001</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1002</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+          <EnableAddr>0x1003</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>
+      <Key ID="key2" Name="M2">      
+         <VoltageAddr>0x1010</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1011</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1012</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+          <EnableAddr>0x1013</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>  
+      <Key ID="key3" Name="M3">      
+         <VoltageAddr>0x1020</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1021</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1022</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+          <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 --> 
+          <EnableAddr>0x1023</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>   
+      <Key ID="key4" Name="M4">      
+         <VoltageAddr>0x1030</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1031</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1032</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+          <EnableAddr>0x1033</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>
+      <Key ID="key5" Name="M5">      
+         <VoltageAddr>0x1040</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1041</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1042</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+          <EnableAddr>0x1043</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>
+      <Key ID="key6" Name="M6">      
+         <VoltageAddr>0x1050</VoltageAddr> <!-- 快捷键电压的地址 -->
+         <VoltageBytes>2</VoltageBytes> <!-- 快捷键电压的地址长度 -->
+
+         <CurrentAddr>0x1051</CurrentAddr><!-- 快捷键电流的地址 -->
+         <CurrentBytes>2</CurrentBytes><!-- 快捷键电流的地址长度 -->
+
+          <TimeSpanAddr>0x1052</TimeSpanAddr><!-- 快捷键 时间 的地址 -->
+          <TimeSpanBytes>2</TimeSpanBytes><!-- 快捷键 时间 的地址长度 -->
+           <MaxTimeSpanValue>9999</MaxTimeSpanValue><!-- 快捷键 时间最大值 -->
+          <EnableAddr>0x1053</EnableAddr><!-- 快捷键使能的地址 -->
+          <EnableBytes>2</EnableBytes><!-- 快捷键使能 地址长度 -->  
+      </Key>
+
+    </Template>
+ </ShortcutKey>

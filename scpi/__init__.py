@@ -8,6 +8,9 @@ import re
 import inspect
 from functools import partial
 from collections import namedtuple
+from re import Pattern
+from typing import AnyStr
+
 import numpy
 
 __version__ = '0.2.0'
@@ -34,7 +37,7 @@ def __decode_ErrArray(s):
     return result
 
 
-def decode_on_off(s):
+def decode_on_off(s: str) -> bool:
     su = s.upper()
     if su in ("1", "ON"):
         return True
@@ -44,21 +47,13 @@ def decode_on_off(s):
         raise ValueError("Cannot decode OnOff value {0}".format(s))
 
 
-def __decode_OnOff(s):
-    return decode_on_off(s)
-
-
-def encode_on_off(s):
+def encode_on_off(s) -> str:
     if s in (0, False, "off", "OFF"):
         return "OFF"
     elif s in (1, True, "on", "ON"):
         return "ON"
     else:
         raise ValueError("Cannot encode OnOff value {0}".format(s))
-
-
-def __encode_OnOff(s):
-    return encode_on_off(s)
 
 
 __decode_IntArray = partial(numpy.fromstring, dtype=int, sep=",")
@@ -95,9 +90,9 @@ FloatArrayCmdR = partial(Cmd, get=__decode_FloatArray)
 StrArrayCmd = partial(Cmd, get=lambda x: x.split(","), set=lambda x: ",".join(x))
 StrArrayCmdR = partial(Cmd, get=lambda x: x.split(","))
 
-OnOffCmd = partial(Cmd, get=__decode_OnOff, set=__encode_OnOff)
-OnOffCmdR = partial(Cmd, get=__decode_OnOff)
-OnOffCmdW = partial(Cmd, set=__encode_OnOff)
+OnOffCmd = partial(Cmd, get=decode_on_off, set=encode_on_off)
+OnOffCmdR = partial(Cmd, get=decode_on_off)
+OnOffCmdW = partial(Cmd, set=encode_on_off)
 BoolCmd = OnOffCmd
 BoolCmdR = OnOffCmdR
 BoolCmdW = OnOffCmdW
@@ -108,7 +103,7 @@ ErrCmd = partial(Cmd, get=__decode_Err)
 ErrArrayCmd = partial(Cmd, get=__decode_ErrArray)
 
 
-def min_max_cmd(cmd_expr):
+def min_max_cmd(cmd_expr: str) -> (str, str):
     """
     Find the shortest and longest version of a SCPI command expression
 
@@ -170,7 +165,7 @@ def cmd_expr_to_reg_expr_str(cmd_expr):
     return reg_expr + "$"
 
 
-def cmd_expr_to_reg_expr(cmd_expr):
+def cmd_expr_to_reg_expr(cmd_expr: str) -> Pattern[AnyStr]:
     """
     Return a compiled regular expression object from the given SCPI command
     expression.
@@ -316,7 +311,7 @@ COMMANDS = Commands(
         "*SRE": IntCmdW(doc="service request enable register"),
         "*STB": StrCmdR(doc="status byte register"),
         "*TRG": FuncCmd(doc="bus trigger"),
-        "*TST": Cmd(get=lambda x: not __decode_OnOff(x), doc="self-test query"),
+        "*TST": Cmd(get=lambda x: not decode_on_off(x), doc="self-test query"),
         "*WAI": FuncCmd(doc="wait to continue"),
         "SYSTem:ERRor[:NEXT]": ErrCmd(doc="return and clear oldest system error"),
     }
