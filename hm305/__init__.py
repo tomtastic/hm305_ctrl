@@ -43,22 +43,10 @@ class HM305:
         self.modbus = Modbus(fd)
         # self.v_setpoint_sw = 0
         self.i_setpoint_sw = 0
-        self.voltage = FloatSetting(
-            self.modbus,
-            value_addr=HM305.CMD.Voltage,
-            setpoint_addr=HM305.CMD.Set_Voltage,
-            value_scalar=100.0,
-            min=0.0,
-            max=32.0  # todo get this off the device
-        )
-        self.current = FloatSetting(
-            self.modbus,
-            value_addr=HM305.CMD.Current,
-            setpoint_addr=HM305.CMD.Set_Current,
-            value_scalar=1000.0,
-            min=0.0,
-            max=10.0  # todo get this off the device
-        )
+        self.voltage = FloatSetting(self.modbus, value_addr=HM305.CMD.Voltage, setpoint_addr=HM305.CMD.Set_Voltage,
+                                    value_scalar=100.0, min_addr=HM305.CMD.Voltage_Min, max_addr=HM305.CMD.Voltage_Max)
+        self.current = FloatSetting(self.modbus, value_addr=HM305.CMD.Current, setpoint_addr=HM305.CMD.Set_Current,
+                                    value_scalar=1000.0, min_addr=HM305.CMD.Current_Min, max_addr=HM305.CMD.Current_Max)
 
     def _set_val(self, addr: int, val) -> bool:
         return self.modbus.set_by_addr(addr, val)

@@ -38,7 +38,7 @@ class CommandFactory:
                 if is_query and scpi_cmd['get'] is not None:
                     to_return = scpi_cmd['get'](arg_str)  # does this case exist?
                 elif not is_query and scpi_cmd['set'] is not None:
-                    to_return = scpi_cmd['set'](arg_str.encode('ascii', 'ignore'))
+                    to_return = scpi_cmd['set'](arg_str)
             else:
                 to_return = None
         elif num_spaces == 0:  # no arg
