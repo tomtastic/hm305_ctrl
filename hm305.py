@@ -37,6 +37,9 @@ if __name__ == "__main__":
         "--get-power", action="store_true", help="report output power in W"
     )
     parser.add_argument(
+        "--get-current-max", action="store_true", help="report possible max current"
+    )
+    parser.add_argument(
         "--get-voltage-max", action="store_true", help="report possible max voltage"
     )
     parser.add_argument("--info", action="store_true", help="get PSU info")
@@ -84,6 +87,8 @@ if __name__ == "__main__":
             logging.info(f"{hm.w} Watts")
         if args.get_power:
             logging.info(f"{hm.w} Watts")
+        if args.get_current_max:
+            logging.info(f"{hm.cmax} Amps")
         if args.get_voltage_max:
             logging.info(f"{hm.vmax} Volts")
         if args.info:

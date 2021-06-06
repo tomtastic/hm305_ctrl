@@ -109,6 +109,10 @@ class HM305:
         return self._tx_rx_word(HM305.CMD.Power) / 1000
 
     @property
+    def cmax(self):
+        return self._tx_rx_word(HM305.CMD.Current_Max)
+
+    @property
     def vmax(self):
         return self._tx_rx_word(HM305.CMD.Voltage_Max)
 
