@@ -2,8 +2,8 @@ import logging
 from enum import IntEnum
 import serial
 
-from hm305.floatsetting import FloatSetting
 from modbus import Modbus
+from hm305.floatsetting import FloatSetting
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +11,9 @@ logger = logging.getLogger(__name__)
 class HM305:
     class CMD(IntEnum):
         Output = 0x0001  # (R/W)
-        ProtectionStatus = 0x0002  # (R), bit field of "isOVP, isOCP, isOPP, isOTP, isSCP"
+        ProtectionStatus = (
+            0x0002  # (R), bit field of "isOVP, isOCP, isOPP, isOTP, isSCP"
+        )
         ModelNum = 0x0003  # (R)
         Class_detail = 0x0004  # (R) # returns "KP". Perhaps is ClassTemplate in DevicesClassInfo.xml?
         Decimals = 0x0005  # (R) # returns 0x233 == scale factors for V/A/P
@@ -25,7 +27,9 @@ class HM305:
         Set_Voltage = 0x0030
         Set_Current = 0x0031
         Set_Time_span = 0x0032
-        Power_state = 0x8801  # "device power on status address, 2 bytes / Device boot state"
+        Power_state = (
+            0x8801  # "device power on status address, 2 bytes / Device boot state"
+        )
         Default_show = 0x8802  # "default value display addr"
         SCP = 0x8803  # short-circuit protection
         Buzzer = 0x8804
@@ -39,14 +43,26 @@ class HM305:
     def __init__(self, fd=None):
         if fd is None:
             logger.debug("HM305 opened without a serial obj! using defaults.")
-            fd = serial.Serial('/dev/ttyUSB0', baudrate=9600, timeout=0.1)
+            fd = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=0.1)
         self.modbus = Modbus(fd)
         # self.v_setpoint_sw = 0
         self.i_setpoint_sw = 0
-        self.voltage = FloatSetting(self.modbus, value_addr=HM305.CMD.Voltage, setpoint_addr=HM305.CMD.Set_Voltage,
-                                    value_scalar=100.0, min_addr=HM305.CMD.Voltage_Min, max_addr=HM305.CMD.Voltage_Max)
-        self.current = FloatSetting(self.modbus, value_addr=HM305.CMD.Current, setpoint_addr=HM305.CMD.Set_Current,
-                                    value_scalar=1000.0, min_addr=HM305.CMD.Current_Min, max_addr=HM305.CMD.Current_Max)
+        self.voltage = FloatSetting(
+            self.modbus,
+            value_addr=HM305.CMD.Voltage,
+            setpoint_addr=HM305.CMD.Set_Voltage,
+            value_scalar=100.0,
+            min_addr=HM305.CMD.Voltage_Min,
+            max_addr=HM305.CMD.Voltage_Max,
+        )
+        self.current = FloatSetting(
+            self.modbus,
+            value_addr=HM305.CMD.Current,
+            setpoint_addr=HM305.CMD.Set_Current,
+            value_scalar=1000.0,
+            min_addr=HM305.CMD.Current_Min,
+            max_addr=HM305.CMD.Current_Max,
+        )
 
     def _set_val(self, addr: int, val) -> bool:
         return self.modbus.set_by_addr(addr, val)
@@ -60,7 +76,7 @@ class HM305:
         else:
             a = self._set_val(addr, val >> 16)
             if a:
-                return self._set_val(addr + 1, val & 0xffff)
+                return self._set_val(addr + 1, val & 0xFFFF)
             return False
 
     def initialize(self):
