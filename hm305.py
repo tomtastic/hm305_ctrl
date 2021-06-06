@@ -39,6 +39,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--get-voltage-max", action="store_true", help="report possible max voltage"
     )
+    parser.add_argument(
+        "--get-memory", action="store_true", help="get MEMORY key settings"
+    )
     parser.add_argument("--info", action="store_true", help="get PSU info")
 
     def auto_int(x):
@@ -86,6 +89,14 @@ if __name__ == "__main__":
             logging.info(f"{hm.w} Watts")
         if args.get_voltage_max:
             logging.info(f"{hm.vmax} Volts")
+        if args.get_memory:
+            memory_values = hm.memory()
+            logging.info("Memory Key Presets:")
+            for key in memory_values:
+                logging.info(f"{key} : {memory_values[key]['Voltage']} Volts")
+                logging.info(f"{key} : {memory_values[key]['Current']} Current")
+                logging.info(f"{key} : {memory_values[key]['Time_span']} Time Span")
+                logging.info(f"{key} : {memory_values[key]['Enable']} Enable")
         if args.info:
             logging.info(
                 f"Info:\n"
