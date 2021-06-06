@@ -90,13 +90,13 @@ if __name__ == "__main__":
         if args.get_voltage_max:
             logging.info(f"{hm.vmax} Volts")
         if args.get_memory:
-            memory_values = hm.memory()
+            memory_values = hm.memory
             logging.info("Memory Key Presets:")
             for key in memory_values:
-                logging.info(f"{key} : {memory_values[key]['Voltage']} Volts")
-                logging.info(f"{key} : {memory_values[key]['Current']} Current")
+                logging.info(f"{key} : {memory_values[key]['Volts']} Volts")
+                logging.info(f"{key} : {memory_values[key]['Amps']} Amps")
                 logging.info(f"{key} : {memory_values[key]['Time_span']} Time Span")
-                logging.info(f"{key} : {memory_values[key]['Enable']} Enable")
+                logging.info(f"{key} : {memory_values[key]['Enabled']} Enabled")
         if args.info:
             logging.info(
                 f"Info:\n"
