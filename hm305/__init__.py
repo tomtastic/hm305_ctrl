@@ -1,5 +1,5 @@
 import logging
-from enum import IntEnum
+from enum import IntEnum, auto
 import serial
 
 from modbus import Modbus
@@ -39,6 +39,55 @@ class HM305:
         Voltage_Max = 0xC11E  # returns 3200 = 32.0 V
         Current_Min = 0xC120  # returns 21 on my HM310P = 0.021A?
         Current_Max = 0xC12E  # returns 10100 on my HM310p = 10.1A
+
+    class PRESET(auto):
+        """
+        M1 - M6 Memory key registers
+        Factory defaults :-
+           Volts: (1, 3, 5, 7, 9,10) / 10 * (UH =  3200) => (320,960,1600,2240,2880,3200)
+           Amps: (1, 3, 5, 7, 9,10) / 10 * (UL = 10100) => (1010,3030,5050,7070,9090,10100)
+           Seconds: 10,11,12,13,14,15
+           Enabled:  1, 1, 1, 1, 1, 1
+        """
+
+        Memory = {
+            "M1": {
+                "Volts": 0x1000,  # (R/W)
+                "Amps": 0x1001,  # (R/W)
+                "Time_span": 0x1002,  # (R/W)
+                "Enabled": 0x1003,  # (R/W)
+            },
+            "M2": {
+                "Volts": 0x1010,  # (R/W)
+                "Amps": 0x1011,  # (R/W)
+                "Time_span": 0x1012,  # (R/W)
+                "Enabled": 0x1013,  # (R/W)
+            },
+            "M3": {
+                "Volts": 0x1020,  # (R/W)
+                "Amps": 0x1021,  # (R/W)
+                "Time_span": 0x1022,  # (R/W)
+                "Enabled": 0x1023,  # (R/W)
+            },
+            "M4": {
+                "Volts": 0x1030,  # (R/W)
+                "Amps": 0x1031,  # (R/W)
+                "Time_span": 0x1032,  # (R/W)
+                "Enabled": 0x1033,  # (R/W)
+            },
+            "M5": {
+                "Volts": 0x1040,  # (R/W)
+                "Amps": 0x1041,  # (R/W)
+                "Time_span": 0x1042,  # (R/W)
+                "Enabled": 0x1043,  # (R/W)
+            },
+            "M6": {
+                "Volts": 0x1050,  # (R/W)
+                "Amps": 0x1051,  # (R/W)
+                "Time_span": 0x1052,  # (R/W)
+                "Enabled": 0x1053,  # (R/W)
+            },
+        }
 
     def __init__(self, fd=None):
         if fd is None:
@@ -153,6 +202,25 @@ class HM305:
     @property
     def device(self):
         return self._get_val(HM305.CMD.Device)
+
+    @property
+    def memory(self):
+        """ Return a dict of dicts for each [preset memory keys][registers] """
+        memory_values = HM305.PRESET.Memory
+        for key in HM305.PRESET.Memory:
+            memory_values[key]["Volts"] = (
+                self._get_val(HM305.PRESET.Memory[key]["Volts"]) / 100.0
+            )
+            memory_values[key]["Amps"] = (
+                self._get_val(HM305.PRESET.Memory[key]["Amps"]) / 1000.0
+            )
+            memory_values[key]["Time_span"] = self._get_val(
+                HM305.PRESET.Memory[key]["Time_span"]
+            )
+            memory_values[key]["Enabled"] = self._get_val(
+                HM305.PRESET.Memory[key]["Enabled"]
+            )
+        return memory_values
 
 
 def rint(x: float) -> int:
